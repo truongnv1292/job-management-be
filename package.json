@@ -1,0 +1,51 @@
+{
+  "name": "base-server-nodejs",
+  "version": "1.0.0",
+  "description": "REST API server Express.js + Prisma + Neon — deploy Vercel serverless",
+  "type": "module",
+  "main": "api/index.js",
+  "scripts": {
+    "dev": "APP_ENV=dev node --watch api/index.js",
+    "start": "APP_ENV=dev node api/index.js",
+    "start:staging": "APP_ENV=staging node api/index.js",
+    "start:prod": "APP_ENV=prod node api/index.js",
+    "postinstall": "prisma generate",
+    "db:generate": "prisma generate",
+    "db:migrate": "node scripts/run-with-env.mjs dev prisma migrate dev",
+    "db:migrate:dev": "node scripts/run-with-env.mjs dev prisma migrate dev",
+    "db:deploy": "node scripts/run-with-env.mjs prod prisma migrate deploy",
+    "db:deploy:staging": "node scripts/run-with-env.mjs staging prisma migrate deploy",
+    "db:deploy:prod": "node scripts/run-with-env.mjs prod prisma migrate deploy",
+    "db:studio": "APP_ENV=dev prisma studio",
+    "build": "prisma generate && node scripts/run-with-env.mjs prod prisma migrate deploy",
+    "loadtest": "node load-test/index.js",
+    "loadtest:health": "node load-test/index.js health",
+    "loadtest:all": "node load-test/index.js all"
+  },
+  "keywords": [
+    "express",
+    "prisma",
+    "neon",
+    "vercel",
+    "jwt"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "@prisma/client": "^6.1.0",
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^2.5.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "ws": "^8.18.0",
+    "zod": "^3.24.1",
+    "prisma": "^6.1.0"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "packageManager": "pnpm@11.1.3+sha512.c85357fe17ca12dd23dd7071822666dfd7e3cb76fe214e3370b5ea2fb34f2a231185509b63e717f3cd0acb38dd3f8d82bcd5e8172400ae678b70ea4fbed0896d"
+}

@@ -1,0 +1,23 @@
+// Prisma schema — định nghĩa models và kết nối DB
+// Chạy `npx prisma migrate dev` để tạo migration và đồng bộ bảng lên Neon
+// Chạy `npx prisma generate` sau mỗi lần sửa schema để cập nhật @prisma/client
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

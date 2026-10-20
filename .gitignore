@@ -1,0 +1,44 @@
+# Biến môi trường chứa secret — KHÔNG commit lên GitLab
+.env
+.env.local
+.env.*.local
+.env.dev
+.env.staging
+.env.prod
+
+# Dependencies
+node_modules/
+
+# pnpm
+.pnpm-store/
+# pnpm-workspace.yaml — PHẢI commit (chứa allowBuilds cho bcrypt/prisma trên CI/Vercel)
+
+# Lockfiles (chỉ commit loại bạn chọn)
+package-lock.json
+yarn.lock
+
+# Prisma
+prisma/*.db
+prisma/*.db-journal
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Vercel
+.vercel
+
+# Upload tạm (Multer lưu local trước khi đẩy Cloudinary)
+uploads/

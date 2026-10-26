@@ -5,7 +5,7 @@
  */
 
 import { prisma } from '../../config/prisma.js';
-import { uploadToCloudinary } from '../../config/cloudinary.js';
+import { uploadToR2 } from '../../config/r2.js';
 
 /**
  * Select public fields — luôn loại password khỏi response
@@ -92,13 +92,14 @@ export async function deleteUser(id) {
 }
 
 /**
- * Upload avatar lên Cloudinary và cập nhật URL vào DB
+ * Upload avatar lên Cloudflare R2 và cập nhật URL vào DB
  * @param {string} id - User ID
  * @param {Buffer} fileBuffer - Buffer từ Multer memoryStorage
+ * @param {string} [mimeType='image/jpeg'] - MIME type của file
  * @returns {Promise<object>}
  */
-export async function uploadUserAvatar(id, fileBuffer) {
-  const avatarUrl = await uploadToCloudinary(fileBuffer, 'avatars');
+export async function uploadUserAvatar(id, fileBuffer, mimeType = 'image/jpeg') {
+  const avatarUrl = await uploadToR2(fileBuffer, mimeType, 'avatars');
 
   return prisma.user.update({
     where: { id },

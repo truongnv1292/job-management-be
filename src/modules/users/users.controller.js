@@ -99,7 +99,11 @@ export async function uploadAvatar(req, res, next) {
       throw error;
     }
 
-    const user = await usersService.uploadUserAvatar(req.params.id, req.file.buffer);
+    const user = await usersService.uploadUserAvatar(
+      req.params.id,
+      req.file.buffer,
+      req.file.mimetype
+    );
 
     return success(res, {
       data: user,
